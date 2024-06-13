@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=GRADING_CodificadorDecodificadorTest
+comment0.text=\n\ Tests\ de\ unidad\ para\ las\ clases\ CodificadorMensajes\n\ y\ DecodificadorMensajes\n
+comment1.params=
+comment1.target=void\ testMensajeSimple()
+comment2.params=
+comment2.target=void\ testMensajeCompuesto()
+comment3.params=
+comment3.target=void\ testMensajes()
+numComments=4

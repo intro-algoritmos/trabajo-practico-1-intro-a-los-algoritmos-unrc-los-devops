@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 /**
  * Clase CodificadorMensajes: representa una componente capaz de cifrar
@@ -78,7 +79,7 @@ public class CodificadorMensajes
     /**
      * Cambia el mensaje a codificar.
      * Precondición: el nuevo mensaje no puede ser null.
-     * Postcondición: el mensaje a codificar se actualiza, y se vuelve el objeto
+     * Postcondición: el mensaje a codificar se actualiza, y se vuel****ve el objeto
      * a un estado de "aún no codificado".
      * @param msg es el mensaje a codificar.
      */
@@ -126,9 +127,35 @@ public class CodificadorMensajes
      */
     private int[] generarCodigoEncripcion(String str) 
     {
-        // TODO: Implementar este método sustituyendo la línea
-        // debajo con el código de la funcionalidad.
-        return null;
+        // Precondición para comprobar que la cadena a encriptar no sea nula
+        if (str == null) {
+            throw new IllegalArgumentException("Cadena nula");
+        }
+        // Precondición para asegurar que los caracteres del @param str pertenecen a 0<=ASCII<=127
+        for (char i : str.toCharArray()) {
+            if (i < 0 || i > 127) {
+                throw new IllegalArgumentException("Existen caracteres no pertenecientes a ASCII");
+            }
+        }
+        //Inicializacion del método
+        //Vuelve @param str en lista, recorriendolo y sumando sus valores ASCII
+        int sumaAscii = 0;
+        for (char i : str.toCharArray()) {
+            sumaAscii += (int) i;
+        }
+        //Crea un código de encripción en formato de arreglo
+        int resto = sumaAscii % 99991;
+        String restoStr = String.valueOf(resto);
+        int[] codigo = new int[restoStr.length()];
+        for (int i = 0; i < restoStr.length(); i++) {
+            codigo[i] = Character.getNumericValue(restoStr.charAt(i));
+        }
+        // Postcondición comprueba que el largo del arreglo que nos devuelve, sea igual al
+        // largo de la cadena que le ingresamos como parámetro real
+        if (codigo.length != restoStr.length()) {
+            throw new IllegalStateException("Generación del código de encripción fallida");
+        }
+        return codigo;
     }
     
     /**
@@ -143,7 +170,9 @@ public class CodificadorMensajes
      * @param codigo es el código a utilizar para la encripción
      */
     private String encriptarCadena(String str, int[] codigo) {
+        //precondición
         if (str == null) throw new IllegalArgumentException("Cadena nula");
+        //precondición
         if (codigo == null) throw new IllegalArgumentException("Código inválido");
         String result = "";
         int indiceCodigo = 0;
@@ -153,6 +182,8 @@ public class CodificadorMensajes
             result = result + currEncriptado;
             indiceCodigo = (indiceCodigo + 1) % (codigo.length);
         }
+        //postcondición
+        assert (result != null):"No se puede devolver una cadena nula";
         return result;
     }
     

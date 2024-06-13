@@ -31,6 +31,7 @@ public class Mensaje
     public Mensaje()
     {
         lineas = new ArrayList<String>();
+
     }
 
     /**
@@ -74,8 +75,21 @@ public class Mensaje
      */
     public void agregarLinea(int pos, String linea)
     {
-        // TODO: Implementar este método
+        if (linea == null)
+            throw new IllegalArgumentException("La linea a agregar no debe ser null.");
+        if (linea.length() > LONG_MAX_LINEA)
+            throw new IllegalArgumentException("Longitud invalida. La linea no debe tener más de 80 caracteres.");
+        if (!esAscii(linea)) 
+            throw new IllegalArgumentException("La linea a agregar contiene caracteres no ascii."); 
+        if(pos < 0 || pos > lineas.size()){
+            throw new IllegalArgumentException("La posición ingresada no es válida");
+        }else{
+            lineas.add(pos, linea);
+        }
+        assert (repOK() == true):"No se cumple con la invariante";
+        assert lineas.get(pos).equals(linea);
     }
+    
     
     /**
      * Elimina la línea de una posición determinada del mensaje.
@@ -133,9 +147,29 @@ public class Mensaje
      */
     public boolean equals(Mensaje otro)
     {
-        // TODO: Implementar este método sustituyendo la línea debajo, con el 
-        // código de la implementación
-        return false;
+        //Comprueba si @param otro contiene algo
+        if(otro == null){
+            throw new IllegalArgumentException("El mensaje comparado debe existir");
+        }
+        //Comprueba si @param otro tiene el mismo tamaño de lista        
+        if(this.lineas.size() != otro.lineas.size()){
+            return false;
+        }
+        //El 'for' recorre el tamaño de la lista lineas y compara si cada una de las lineas son iguales
+        for(int i = 0; i < this.lineas.size(); i++){
+            String linea1 = this.lineas.get(i);
+            String linea2 = otro.lineas.get(i);
+            
+            if(linea1 == null){
+                if(linea2 != null){
+                    return false;
+                }
+            }else if(!linea1.equals(linea2)){
+                return false;
+            }
+        }
+        //En caso de que las lineas sean iguales significa que los mensajes son iguales
+        return true;
     }
     
     /**
@@ -172,5 +206,5 @@ public class Mensaje
             return ok;
         }
     }
-    
 }
+

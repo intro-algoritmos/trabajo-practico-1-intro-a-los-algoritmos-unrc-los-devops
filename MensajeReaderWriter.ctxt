@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=MensajeReaderWriter
+comment1.params=msg\ fileName
+comment1.target=void\ writeMensaje(Mensaje,\ java.lang.String)
+comment2.params=fileName
+comment2.target=Mensaje\ readMensaje(java.lang.String)
+comment3.params=array\ fileName
+comment3.target=void\ writeIntArray(int[],\ java.lang.String)
+comment4.params=fileName
+comment4.target=java.lang.String\ readIntArray(java.lang.String)
+numComments=5

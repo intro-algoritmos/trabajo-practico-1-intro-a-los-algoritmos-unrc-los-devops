@@ -1,3 +1,4 @@
+import java.util.*;
 
 /**
  * Clase DecodificadorMensajes: representa una componente capaz de descifrar
@@ -57,7 +58,19 @@ public class DecodificadorMensajes
      */
     public void decodificarMensaje() 
     {
-        // TODO: Implementar este método
+        //Precondición para chequear si el mensaje fue decodificado
+        if(mensajeDecodificado != null)
+        throw new IllegalStateException("El mensaje ya fue decodificado");
+        //Crea y le asigna un objeto al campo mensajeDecodificado.
+        //Obtiene cada linea encriptada y la decodifica guardandola en el objeto mensajeDecodificado
+        mensajeDecodificado = new Mensaje();
+        for(int x = 0; x < mensajeADecodificar.cantLineas(); x++){
+            String cadena = mensajeADecodificar.obtenerLinea(x);
+            String cadenaNueva = desencriptarCadena(cadena, codigoEncripcion);
+            mensajeDecodificado.agregarLinea(cadenaNueva);
+        }
+        //postcondición para chequear que mensajeDecodificado fue modificado
+        assert (mensajeDecodificado != null):"El mensaje no se decodificó";
     }
     
     /**
@@ -85,10 +98,48 @@ public class DecodificadorMensajes
      * @param str es la cadena a desencriptar
      * @param codigo es el código a utilizar para la desencripción
      */
-    private String desencriptarCadena(String str, int[] codigo) {
-        // TODO: Implementar este método, sustituyendo la línea
-        // debajo con el código correspondiente a la funcionalidad
-        return null;
-    }
+
+    private String desencriptarCadena(String str, int[] codigo){ 
+    // index para recorrer la posicion en el arreglo codigo
+    int index = 0;
+    //variable para guardar la cadena desencriptada
+    String mensajeDesencriptado = "";
+    for(int i = 0; i < str.length(); i++){
+        //variable para guardar el codigo ascii del caracter en la posicion i
+        char charAsciiEncriptado = str.charAt(i);
+        
+        char charAsciiDesencriptado;
+        
+        charAsciiDesencriptado = (char) (((charAsciiEncriptado - codigo[index]) + 128) % 128);
     
+        /*  //variable utilizada para condicional if
+         *  int esMenor = (int) ((charAsciiEncriptado - codigo[index]) % 128);
+         *  //condicional para no salirse del rango 0--127 en ascii
+         *  if(esMenor < 0){
+         *      charAsciiDesencriptado = (char) (((charAsciiEncriptado - codigo[index]) + 128) % 128);
+         *  }else{
+         *        charAsciiDesencriptado = (char) ((charAsciiEncriptado - codigo[index]) % 128);
+         *  }
+         */
+        
+        
+        /** Print utilizado en la realizacion del código para comprobar si desencriptaba correctamente */
+        //System.out.println(charAsciiDesencriptado);
+        
+        // variable para guardar el tamaño del arreglo
+        int tamañoArreglo = codigo.length;
+        //concatenacion de caracteres desencriptados a la cadena mensajeDesencriptado
+        mensajeDesencriptado += charAsciiDesencriptado;
+        //variable utilizada para no salirnos del rango maximo del arreglo y desencripte con el codigo necesario en cada posición
+        index = (index + 1) % tamañoArreglo;
+        //postcondición para corroborar que index no se sale de rango
+        if(index < 0 && index >= tamañoArreglo)
+        throw new IllegalStateException("El index se fue de rango");
+    }
+    /** Print utilizado al final del bucle para comprobar por pantalla si la linea fue desencriptada correctamente*/
+    //System.out.println(mensajeDesencriptado);
+    assert(mensajeDesencriptado != null):"La cadena no fue modificada correctamente";
+    return mensajeDesencriptado;
+    }
 }
+
