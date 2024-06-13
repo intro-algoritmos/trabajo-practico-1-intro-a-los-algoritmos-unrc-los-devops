@@ -107,15 +107,22 @@ public class DecodificadorMensajes
     for(int i = 0; i < str.length(); i++){
         //variable para guardar el codigo ascii del caracter en la posicion i
         char charAsciiEncriptado = str.charAt(i);
-        //variable utilizada para condicional if
-        int esMenor = (int) ((charAsciiEncriptado - codigo[index]) % 128);
+        
         char charAsciiDesencriptado;
-        //condicional para no salirse del rango 0--127 en ascii
-        if(esMenor == 0){
-            charAsciiDesencriptado = 127;
-        }else{
-            charAsciiDesencriptado = (char) ((charAsciiEncriptado - codigo[index]) % 128);
-        }
+        
+        charAsciiDesencriptado = (char) (((charAsciiEncriptado - codigo[index]) + 128) % 128);
+    
+        /*  //variable utilizada para condicional if
+         *  int esMenor = (int) ((charAsciiEncriptado - codigo[index]) % 128);
+         *  //condicional para no salirse del rango 0--127 en ascii
+         *  if(esMenor < 0){
+         *      charAsciiDesencriptado = (char) (((charAsciiEncriptado - codigo[index]) + 128) % 128);
+         *  }else{
+         *        charAsciiDesencriptado = (char) ((charAsciiEncriptado - codigo[index]) % 128);
+         *  }
+         */
+        
+        
         /** Print utilizado en la realizacion del código para comprobar si desencriptaba correctamente */
         //System.out.println(charAsciiDesencriptado);
         

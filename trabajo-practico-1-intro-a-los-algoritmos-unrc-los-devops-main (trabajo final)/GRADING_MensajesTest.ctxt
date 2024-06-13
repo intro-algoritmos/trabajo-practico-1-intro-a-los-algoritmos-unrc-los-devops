@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=GRADING_MensajesTest
+comment0.text=\n\ Tests\ de\ unidad\ para\ la\ clase\ Mensaje\n\n\ @author\ N.\ Aguirre\n\ @version\ 0.1\n
+comment1.params=
+comment1.target=void\ agregaLineaValida()
+comment2.params=
+comment2.target=void\ agregaDosLineasValidas()
+comment3.params=
+comment3.target=void\ agregaLineaPosValida()
+comment4.params=
+comment4.target=void\ equalsMensajesDistintos()
+comment5.params=
+comment5.target=void\ equalsMensajesIguales()
+numComments=6
