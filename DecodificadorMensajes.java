@@ -112,9 +112,9 @@ public class DecodificadorMensajes
         
         charAsciiDesencriptado = (char) (((charAsciiEncriptado - codigo[index]) + 128) % 128);
     
-        /*  //variable utilizada para condicional if
+        /*  //primer codigo utilizado para desencriptar caracteres
          *  int esMenor = (int) ((charAsciiEncriptado - codigo[index]) % 128);
-         *  //condicional para no salirse del rango 0--127 en ascii
+         *  
          *  if(esMenor < 0){
          *      charAsciiDesencriptado = (char) (((charAsciiEncriptado - codigo[index]) + 128) % 128);
          *  }else{
